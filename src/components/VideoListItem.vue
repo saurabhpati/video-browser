@@ -16,7 +16,7 @@ export default {
   computed: {
     getThumbnailUrl() {
       return this.video.snippet.thumbnails.default.url;
-    }
+    },
   },
   methods: {
     onVideoSelect() {
