@@ -1,15 +1,16 @@
 <template>
   <div id="app" class="container">
     <SearchBar @termChange="onTermChange" />
-    <VideoList :videos="videos"></VideoList>
+    <VideoDetail :video="selectedVideo"></VideoDetail>
+    <VideoList :videos="videos" @videoSelect="onVideoSelect"></VideoList>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import axios from "axios";
 import SearchBar from "./components/SearchBar.vue";
 import VideoList from "./components/VideoList.vue";
+import VideoDetail from "./components/VideoDetail.vue";
 
 const API_KEY = "AIzaSyDHRrpDbA9uEYWKY_hpsZ6H5DvLH-e0OcM";
 
@@ -17,11 +18,13 @@ export default {
   name: "app",
   components: {
     SearchBar,
-    VideoList
+    VideoList,
+    VideoDetail,
   },
   data() {
     return {
-      videos: []
+      videos: [],
+      selectedVideo: null,
     };
   },
   methods: {
@@ -38,6 +41,12 @@ export default {
         .then(response => {
           this.videos = response.data.items;
         });
+    },
+
+    onVideoSelect(video) {
+      // eslint-disable-next-line
+      console.log("this is the video", video);
+      this.selectedVideo = video;
     }
   }
 };
